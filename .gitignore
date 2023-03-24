@@ -19,6 +19,7 @@ mono_crash.*
 # Build results
 obj/
 [Dd]ebugPublic/
+[Bb]in/obj/
 [Rr]elease/
 [Rr]eleases/
 x64/
