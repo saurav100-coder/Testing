@@ -1,0 +1,75 @@
+﻿@model IEnumerable<StudentRecord.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="container p-3">
+    <table class="table table-striped table-bordered" id="dataTable" style="width:100%">
+    <thead>
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+           
+        
+    </tbody>
+</table>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //alert("JQery works");
+
+            $.ajax({
+                url: 'Student/GetStudents',
+                dataType: "json",
+                method: 'GET',
+                success: function (data) {
+                    console.log(data.data);
+                    var stuTable = $('#dataTable tbody');
+                    //let temp = document.querySelector('#dataTable');
+                    console.log(temp,stuTable);
+                    stuTable.empty();
+                    $(data.data).each(function (index, stu) {
+                        //console.log(stu);
+                        //console.log(stu.name)
+                        stuTable.append('<tr><td>'
+                            + stu.name + '</td><td>' + stu.city + '</td><td>'
+                            + stu.department + '</td><td>' + stu.gender + '</td></tr>');
+                    });
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+
+        });
+        
+        
+
+    </script>
+
+}
